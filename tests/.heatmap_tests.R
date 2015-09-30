@@ -1,18 +1,8 @@
-#!/usr/bin/Rscript --vanilla --slave --no-site-file
+library(RUnit)
 
+wrapperF <- function(argVc) {
 
-library(batch) ## parseCommandArgs
-
-source_local <- function(fname){
-    argv <- commandArgs(trailingOnly = FALSE)
-    base_dir <- dirname(substring(argv[grep("--file=", argv)], 8))
-    source(paste(base_dir, fname, sep="/"))
-}
-
-source_local("heatmap_script.R")
-
-argVc <- unlist(parseCommandArgs(evaluate=FALSE))
-
+    source("../heatmap_script.R")
 
 ##------------------------------
 ## Initializing
@@ -132,3 +122,38 @@ sink()
 options(stringsAsFactors = strAsFacL)
 
 rm(list = ls())
+
+
+}
+
+exaDirOutC <- "output"
+stopifnot(file.exists(exaDirOutC))
+
+tesArgLs <- list(input_cut1 = c(cutSamN = "4",
+                     cutVarN = "3",
+                     scaL = "TRUE",
+                     cexN = "0.8"),
+                 mpetera = c(cutSamN = "1",
+                     cutVarN = "1",
+                     scaL = "TRUE",
+                     cexN = "0.5"))
+
+for(tesC in names(tesArgLs))
+    tesArgLs[[tesC]] <- c(tesArgLs[[tesC]],
+                          dataMatrix_in = file.path(unlist(strsplit(tesC, "_"))[1], "dataMatrix.tsv"),
+                          sampleMetadata_in = file.path(unlist(strsplit(tesC, "_"))[1], "sampleMetadata.tsv"),
+                          variableMetadata_in = file.path(unlist(strsplit(tesC, "_"))[1], "variableMetadata.tsv"),
+                          dataMatrix_out = file.path(exaDirOutC, "dataMatrix.tsv"),
+                          sampleMetadata_out = file.path(exaDirOutC, "sampleMetadata.tsv"),
+                          variableMetadata_out = file.path(exaDirOutC, "variableMetadata.tsv"),
+                          figure = file.path(exaDirOutC, "figure.pdf"),
+                          information = file.path(exaDirOutC, "information.txt"))
+
+for(tesC in names(tesArgLs)) {
+    print(tesC)
+    heaLs <- wrapperF(tesArgLs[[tesC]])
+    if(".chkC" %in% names(tesArgLs[[tesC]]))
+        stopifnot(eval(parse(text = tesArgLs[[tesC]][[".chkC"]])))
+}
+
+message("Checks successfully completed")

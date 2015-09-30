@@ -4,28 +4,35 @@
 ## etienne.thevenot@cea.fr
 ## 2015-05-30
 
+
 heatmapF <- function(proMN,
                      obsDF,
                      feaDF,
-                     cutObsN,
-                     cutFeaN,
+                     cutSamN,
+                     cutVarN,
                      fig.pdfC,
                      scaL,
                      cexN) {
 
     ncaN <- 14 ## Sample and variable name truncature for display
 
+    warC <- "ward"
+    rvsLs <- R.Version()
+    warC <- paste0(warC,
+                   ifelse(as.numeric(rvsLs[["major"]]) > 3 ||
+                          as.numeric(rvsLs[["major"]]) == 3 && as.numeric(rvsLs[["minor"]]) > 0.3,
+                          ".D",
+                          ""))
+
     obsHcl <- hclust(as.dist(1-cor(t(proMN),
                                    method = "spearman",
                                    use = "pairwise.complete.obs")),
-                     method = "ward")
+                     method = warC)
 
     feaHcl <- hclust(as.dist(1-cor(proMN,
                                    method = "spearman",
                                    use = "pairwise.complete.obs")),
-                     method = "ward")
-
-    feaRevHcl <- as.hclust(rev(as.dendrogram(feaHcl)))
+                     method = warC)
 
     heaMN <- proMN <- proMN[obsHcl[["order"]], feaHcl[["order"]]]
 
@@ -108,10 +115,13 @@ heatmapF <- function(proMN,
          main = "", xaxs = "i", yaxs = "i",
          xaxt = "n", yaxt = "n", xlab = "", ylab = "")
 
-    revFeaHcl <- as.hclust(rev(as.dendrogram(feaHcl)))
+    revFeaHcl <- list(merge = cbind(feaHcl[["merge"]][, 2], feaHcl[["merge"]][, 1]),
+                      height = feaHcl[["height"]],
+                      order = rev(feaHcl[["order"]]),
+                      labels = feaHcl[["labels"]])
 
-    if(cutFeaN > 1) {
-        cluFeaVn <- cutree(revFeaHcl, k = cutFeaN)[revFeaHcl[["order"]]]
+    if(cutVarN > 1) {
+        cluFeaVn <- cutree(revFeaHcl, k = cutVarN)[revFeaHcl[["order"]]]
         cutFeaVn <- which(abs(diff(cluFeaVn)) > 0)
         cutFeaTxtVn <- c(cutFeaVn[1] / 2, cutFeaVn + diff(c(cutFeaVn, length(cluFeaVn))) / 2) + 0.5
         cutFeaLinVn <- cutFeaVn + 0.5
@@ -132,8 +142,8 @@ heatmapF <- function(proMN,
          main = "", xaxs = "i", yaxs = "i",
          yaxt = "n", xlab = "", ylab = "")
 
-    if(cutObsN > 1) {
-        cluObsVn <- cutree(obsHcl, k = cutObsN)[obsHcl[["order"]]]
+    if(cutSamN > 1) {
+        cluObsVn <- cutree(obsHcl, k = cutSamN)[obsHcl[["order"]]]
         cutObsVn <- which(abs(diff(cluObsVn)) > 0)
         cutObsTxtVn <- c(cutObsVn[1] / 2, cutObsVn + diff(c(cutObsVn, length(cluObsVn))) / 2) + 0.5
         cutObsLinVn <- cutObsVn + 0.5
@@ -181,9 +191,9 @@ heatmapF <- function(proMN,
           las = 2,
           side = 4)
 
-    if(cutFeaN > 1)
+    if(cutVarN > 1)
         abline(h = cutFeaLinVn)
-    if(cutObsN > 1)
+    if(cutSamN > 1)
         abline(v = cutObsLinVn)
 
     box()
@@ -193,12 +203,12 @@ heatmapF <- function(proMN,
     ## Returning
     ##----------
 
-    if(cutObsN > 1)
-        obsDF[, "heat_clust"] <- cutree(obsHcl, k = cutObsN)
+    if(cutSamN > 1)
+        obsDF[, "heat_clust"] <- cutree(obsHcl, k = cutSamN)
     obsDF <- obsDF[obsHcl[["order"]], , drop = FALSE]
 
-    if(cutFeaN > 1)
-        feaDF[, "heat_clust"] <- cutree(feaHcl, k = cutFeaN)
+    if(cutVarN > 1)
+        feaDF[, "heat_clust"] <- cutree(feaHcl, k = cutVarN)
     feaDF <- feaDF[feaHcl[["order"]], , drop = FALSE]
 
     return(invisible(list(proMN = proMN,

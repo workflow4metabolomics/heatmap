@@ -1,4 +1,4 @@
-<tool id="Heatmap" name="Heatmap" version="1.1.0; 2015-05-30">
+<tool id="Heatmap" name="Heatmap" version="2.1.1">
 	<description>Heatmap of the dataMatrix</description>
 
  	<command interpreter="Rscript">
@@ -96,6 +96,12 @@
 
 .. class:: infomark
 
+| **Tool update: See the 'NEWS' section at the bottom of the page**
+
+---------------------------------------------------
+
+.. class:: infomark
+
 **Author** Etienne Thevenot (W4M Core Development Team, MetaboHUB Paris, CEA)
 
 ---------------------------------------------------
@@ -105,7 +111,7 @@
 **References**
 
 | Thevenot E., Roux A., Xu Y., Ezan E., and Junot C. Analysis of the human adult urinary metabolome variations with age, body mass index and gender by implementing a comprehensive workflow for univariate and OPLS statistical analyses. *submitted*.
-| R Core Team (2013). R: A language and environment for statistical computin. R Foundation for Statistical Computing, Vienna, Austria (http://www.r-project.org)
+| R Core Team (2013). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria (http://www.r-project.org)
 |
 
 ---------------------------------------------------
@@ -123,7 +129,7 @@ Description
  | In the output dataMatrix, sampleMetadata and variableMetadata files sample and variables are sorted according to the dendrograms
  | Optionally, indicates the groups of samples and/or variables obtained by cutting the dendrograms into a specific number of partitions
  |
- | Note: 1) Computations rely on the 'hclust' function. The dissimilarity is 1 - cor (where cor is the Spearman correlation) and the 'ward' aggregating method is used.
+ | Note: 1) Computations rely on the 'hclust' function. The dissimilarity is 1 - cor (where cor is the Spearman correlation) and the 'ward.D' aggregating method is used.
  |       2) A "blue-orange-red" palette is generated with the function 'colorRampPalette'; **By default, variables are standardized (mean-centered and unit-scaled) to enhance contrast on the figure**; standardization can be turned off by using the full list of parameters; in any case, standardizing is performed after the computation of clusters, for display only
  |       3) When a specific number of sample and/or variable groups (i.e. > 1) are selected, the group numbers are indicated on the plot and in an additional 'heat_clust" column in the sampleMetadata and/or variableMetadata
  |       4) Example of computation times: for 126 variables: a few seconds; for 4324 variables: 30 min
@@ -316,6 +322,16 @@ Figure output
 .. image:: heatmap_workingExampleImage.png
         :width: 600
 
+---------------------------------------------------
+
+----
+NEWS
+----
+
+CHANGES IN VERSION 2.1.1
+========================
+
+Internal replacement of the as.hclust function which happened to produce error messages
 
   </help>
   
