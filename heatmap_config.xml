@@ -23,7 +23,8 @@
   dataMatrix_out "$dataMatrix_out"
   sampleMetadata_out "$sampleMetadata_out"
   variableMetadata_out "$variableMetadata_out"
-  figure "$figure"            
+  figure "$figure"
+  information "$information"
   ]]></command>
   
   <inputs>
@@ -71,7 +72,11 @@
       <param name="oppC" type="select" label="Advanced parameters" >
 	<option value="default" selected="true">Use default</option>
 	<option value="full">Full list</option>
-      </param>		
+      </param>
+      <when value="default">
+        <param name="scaL" type="hidden" value="TRUE"/>
+	<param name="cexN" type="hidden" value="0.8"/>
+      </when>	
       <when value="full">
 	<param name="scaL" label="Variable standardization (for plotting only)" type="select" help="Standardization is performed after the clustering for display only (may enhance contrast) and does not modify cluster computation nor intensities in the output files">
 	  <option value="TRUE" selected="true">yes</option>
@@ -95,7 +100,21 @@
     <data name="sampleMetadata_out" label="${tool.name}_${sampleMetadata_in.name}" format="tabular" ></data>
     <data name="variableMetadata_out" label="${tool.name}_${variableMetadata_in.name}" format="tabular" ></data>
     <data name="figure" label="${tool.name}_figure.pdf" format="pdf"/>
+    <data name="information" label="${tool.name}_information.txt" format="txt"/>
   </outputs>	
+
+  <tests>
+    <test>
+      <param name="dataMatrix_in" value="input-dataMatrix.tsv"/>
+      <param name="sampleMetadata_in" value="input-sampleMetadata.tsv"/>
+      <param name= "variableMetadata_in" value="input-variableMetadata.tsv"/>
+      <param name="cutSamN" value="1"/>
+      <param name="cutVarN" value="3"/>
+      <param name="scaL" value="TRUE"/>
+      <param name="cexN" value="0.8"/>
+      <output name="variableMetadata_out" file="output-variableMetadata.tsv"/>
+    </test>
+  </tests>
   
   <help>
 
@@ -220,6 +239,9 @@ figure.pdf
 	| Heatmap
 	| 	
 
+information.txt
+	| File with all messages and warnings generated during the computation
+	|
 	
 ---------------------------------------------------
 
