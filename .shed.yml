@@ -1,0 +1,7 @@
+categories: [Metabolomics]
+description: '[W4M][Metabolomics][LC-MS][GC-MS][NMR] Heatmap of the data matrix.'
+homepage_url: http://workflow4metabolomics.org
+long_description: 'The heatmap is produced by using the "hclust" hierarchical clustering function from R. The distance used is 1-cor by default, or 1-abs(cor), where cor is the Pearson correlation coefficient by default, or the Spearman's rank correlation coefficient. The Ward agglomeration method is used. Note that computation times for big matrices (e.g. with thousands of features) can be long.'
+name: heatmap
+owner: ethevenot
+remote_repository_url: https://github.com/workflow4metabolomics/heatmap.git
