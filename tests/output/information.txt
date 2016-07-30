@@ -1,4 +1,4 @@
 
-Start of the 'Heatmap' module: ven. 27 nov. 2015 18:21:01
+Start of the 'Heatmap' module: sam. 30 juil. 2016 19:39:36
 
-End of the 'Heatmap' Galaxy module call: ven. 27 nov. 2015 18:21:02
+End of the 'Heatmap' Galaxy module call: sam. 30 juil. 2016 19:39:36
