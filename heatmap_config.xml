@@ -1,4 +1,4 @@
-<tool id="Heatmap" name="Heatmap" version="2.1.2">
+<tool id="Heatmap" name="Heatmap" version="2.2.0">
   <description>Heatmap of the dataMatrix</description>
   
   <requirements>
@@ -12,10 +12,12 @@
   sampleMetadata_in "$sampleMetadata_in"
   variableMetadata_in "$variableMetadata_in"
   
+  disC "$disC"
   cutSamN "$cutSamN"
   cutVarN "$cutVarN"
   
   #if $advPar.oppC == "full"
+  corMetC "$advPar.corMetC"
   scaL "$advPar.scaL"
   cexN "$advPar.cexN"
   #end if
@@ -31,6 +33,11 @@
     <param name="dataMatrix_in" type="data" label="Data matrix file" help="" format="tabular" />
     <param name="sampleMetadata_in" type="data" label="Sample metadata file" help="" format="tabular" />
     <param name="variableMetadata_in" type="data" label="Variable metadata file" help="" format="tabular" />
+    
+    <param name="disC" label="Distance to be used for clustering" type="select" help="If the sign of the correlations between samples or variables does not matter, choose the alternative '1-abs(correlation)' argument; otherwise, keep the '1-correlation' default">
+      <option value="1-cor" selected="true">1-correlation</option>
+      <option value="1-abs(cor)">1-|correlation|</option>
+    </param>
     
     <param name="cutSamN" label="Number of sample clusters to identify" type="select" help="">
       <option value="1" selected="true">1</option>
@@ -74,10 +81,15 @@
 	<option value="full">Full list</option>
       </param>
       <when value="default">
+        <param name="corMetC" type="hidden" value="pearson"/>
         <param name="scaL" type="hidden" value="TRUE"/>
-	<param name="cexN" type="hidden" value="0.8"/>
+	    <param name="cexN" type="hidden" value="0.8"/>
       </when>	
       <when value="full">
+    <param name="corMetC" label="Method of correlation to be used" type="select" help="">
+	  <option value="pearson" selected="true">pearson</option>
+	  <option value="spearman">spearman</option>
+	</param>  
 	<param name="scaL" label="Variable standardization (for plotting only)" type="select" help="Standardization is performed after the clustering for display only (may enhance contrast) and does not modify cluster computation nor intensities in the output files">
 	  <option value="TRUE" selected="true">yes</option>
 	  <option value="FALSE">no</option>
@@ -108,8 +120,10 @@
       <param name="dataMatrix_in" value="input-dataMatrix.tsv"/>
       <param name="sampleMetadata_in" value="input-sampleMetadata.tsv"/>
       <param name= "variableMetadata_in" value="input-variableMetadata.tsv"/>
+      <param name="disC" value="1-cor"/>
       <param name="cutSamN" value="1"/>
       <param name="cutVarN" value="3"/>
+      <param name="corMetC" value="spearman"/>
       <param name="scaL" value="TRUE"/>
       <param name="cexN" value="0.8"/>
       <output name="variableMetadata_out" file="output-variableMetadata.tsv"/>
@@ -258,6 +272,16 @@ See the **W4M00001a_sacurine-subset-statistics** shared history in the **Shared 
 ----
 NEWS
 ----
+
+CHANGES IN VERSION 2.2.0
+========================
+
+NEW FEATURES
+
+Default method for the correlation coefficient is now 'pearson', instead of 'spearman' previously (the latter can still be selected in the advanced parameters)
+
+The 1-abs(correlation) method is now available (in addition to the default '1-correlation') in case the sign of correlations between samples and between variables does not matter
+
 
 CHANGES IN VERSION 2.1.2
 ========================

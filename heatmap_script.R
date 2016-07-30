@@ -8,9 +8,11 @@
 heatmapF <- function(proMN,
                      obsDF,
                      feaDF,
+                     disC,
                      cutSamN,
                      cutVarN,
                      fig.pdfC,
+                     corMetC,
                      scaL,
                      cexN) {
 
@@ -24,15 +26,31 @@ heatmapF <- function(proMN,
                           ".D",
                           ""))
 
-    obsHcl <- hclust(as.dist(1-cor(t(proMN),
-                                   method = "spearman",
-                                   use = "pairwise.complete.obs")),
-                     method = warC)
+    if(substr(disC, 1, 5) == "1-cor") {
 
-    feaHcl <- hclust(as.dist(1-cor(proMN,
-                                   method = "spearman",
-                                   use = "pairwise.complete.obs")),
-                     method = warC)
+        obsHcl <- hclust(as.dist(1-cor(t(proMN),
+                                       method = corMetC,
+                                       use = "pairwise.complete.obs")),
+                         method = warC)
+
+        feaHcl <- hclust(as.dist(1-cor(proMN,
+                                       method = corMetC,
+                                       use = "pairwise.complete.obs")),
+                         method = warC)
+
+    } else if(disC == "1-abs(cor)") {
+
+        obsHcl <- hclust(as.dist(1-abs(cor(t(proMN),
+                                           method = corMetC,
+                                           use = "pairwise.complete.obs"))),
+                         method = warC)
+
+        feaHcl <- hclust(as.dist(1-abs(cor(proMN,
+                                           method = corMetC,
+                                           use = "pairwise.complete.obs"))),
+                         method = warC)
+
+    }
 
     heaMN <- proMN <- proMN[obsHcl[["order"]], feaHcl[["order"]]]
 

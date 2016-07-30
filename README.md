@@ -1,11 +1,11 @@
-## Heatmap of the dataMatrix  
+## Heatmap of the data matrix  
 #### A Galaxy module from the [Workflow4metabolomics](http://workflow4metabolomics.org) project
 
 Status: [![Build Status](https://travis-ci.org/workflow4metabolomics/heatmap.svg?branch=master)](https://travis-ci.org/workflow4metabolomics/heatmap).
 
 ### Description
 
-**Version:** 2.1.2    
+**Version:** 2.2.0    
 **Date:** 2016-07-30  
 **Author:** Etienne A. Thevenot (CEA, LIST, MetaboHUB, W4M Core Development Team)   
 **Email:** [etienne.thevenot(at)cea.fr](mailto:etienne.thevenot@cea.fr)  
@@ -31,11 +31,23 @@ The code in the wrapper can be tested by running the **tests/heatmap_tests.R** i
 
 ### News  
 
+##### CHANGES IN VERSION 2.2.0  
+
+NEW FEATURES  
+
+    o Default method for the correlation coefficient is now 'pearson', instead of 'spearman' previously (the latter can still be selected in the advanced parameters)  
+
+    o The '1-abs(correlation)' method is now available (in addition to the default '1-correlation') in case the sign of correlations between samples and between variables does not matter  
+
+***    
+    
 ##### CHANGES IN VERSION 2.1.2  
 
 INTERNAL MODIFICATION  
 
     o Creating additional files for planemo and travis validation  
+
+***  
     
 ##### CHANGES IN VERSION 2.0.2  
 

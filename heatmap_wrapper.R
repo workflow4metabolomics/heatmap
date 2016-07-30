@@ -60,6 +60,7 @@ feaDF <- read.table(argVc["variableMetadata_in"],
 
 cutSamN <- as.numeric(argVc["cutSamN"])
 cutVarN <- as.numeric(argVc["cutVarN"])
+disC <- as.character(argVc["disC"])
 
 ## checking
 ##---------
@@ -68,6 +69,8 @@ if(cutSamN > nrow(proMN))
     stop("Number of sample clusters must be inferior to the number of samples")
 if(cutVarN > ncol(proMN))
     stop("Number of variable clusters must be inferior to the number of variables")
+if(!(disC %in% c("1-cor", "1-abs(cor)")))
+   stop("Distance must be either '1-cor', '1-abs(cor)'")
 
 
 ##------------------------------
@@ -78,9 +81,13 @@ if(cutVarN > ncol(proMN))
 heaLs <- heatmapF(proMN = proMN,
                   obsDF = obsDF,
                   feaDF = feaDF,
+                  disC = disC,
                   cutSamN = cutSamN,
                   cutVarN = cutVarN,
                   fig.pdfC = argVc["figure"],
+                  corMetC = ifelse("corMetC" %in% names(argVc),
+                      as.character(argVc["corMetC"]),
+                      "pearson"),
                   scaL = ifelse("scaL" %in% names(argVc),
                       as.logical(argVc["scaL"]),
                       TRUE),
