@@ -1,8 +1,13 @@
-<tool id="Heatmap" name="Heatmap" version="2.1.1">
-	<description>Heatmap of the dataMatrix</description>
+<tool id="Heatmap" name="Heatmap" version="2.1.2">
+    <description>Heatmap of the dataMatrix</description>
 
- 	<command interpreter="Rscript">
-		heatmap_wrapper.R
+	<requirements>
+	  <requirement type="package" version="3.2.2">R</requirement>
+	  <requirement type="package">r-batch</requirement>
+	</requirements>
+    
+    <command><![CDATA[
+	Rscript $__tool_directory__/heatmap_wrapper.R
 			dataMatrix_in "$dataMatrix_in"
 			sampleMetadata_in "$sampleMetadata_in"
 			variableMetadata_in "$variableMetadata_in"
@@ -18,8 +23,8 @@
 			dataMatrix_out "$dataMatrix_out"
 			sampleMetadata_out "$sampleMetadata_out"
 			variableMetadata_out "$variableMetadata_out"
-			figure "$figure"
-	</command>
+			figure "$figure"            
+	]]></command>
 	
 	<inputs>
 		<param name="dataMatrix_in" type="data" label="Data matrix file" help="" format="tabular" />
@@ -116,6 +121,15 @@
 
 ---------------------------------------------------
 
+.. class:: infomark
+
+**Tool updates**
+
+See the **NEWS** section at the bottom of this page
+  
+---------------------------------------------------
+
+
 ========================
 Heatmap
 ========================
@@ -209,7 +223,46 @@ figure.pdf
 	
 ---------------------------------------------------
 
+---------------
+Working example
+---------------
 
+.. class:: infomark
+
+See the **W4M00001a_sacurine-subset-statistics** shared history in the **Shared Data/Published Histories** menu
+
+---------------------------------------------------
+
+----
+NEWS
+----
+
+CHANGES IN VERSION 2.1.2
+========================
+
+INTERNAL MODIFICATIONS
+
+Creating additional files for planemo and travis running and installation validation
+
+ </help>
+ 
+ <citations>
+    <citation type="bibtex">@Article{Thevenot2015,
+  Title                    = {Analysis of the human adult urinary metabolome variations with age, body mass index and gender by implementing a comprehensive workflow for univariate and OPLS statistical analyses},
+  Author                   = {Thévenot, Etienne A. and Roux, Aurélie and Xu, Ying and Ezan, Eric and Junot, Christophe},
+  Journal                  = {Journal of Proteome Research},
+  Year                     = {2015},
+  Note                     = {PMID: 26088811},
+  Number                   = {8},
+  Pages                    = {3322-3335},
+  Volume                   = {14},
+
+  Doi                      = {10.1021/acs.jproteome.5b00354},
+  Url                      = {http://pubs.acs.org/doi/full/10.1021/acs.jproteome.5b00354}
+}</citation>
+
+ </citations>
+ 
 ---------------
 Working example
 ---------------
@@ -333,6 +386,6 @@ CHANGES IN VERSION 2.1.1
 
 Internal replacement of the as.hclust function which happened to produce error messages
 
-  </help>
+ 
   
 </tool>
