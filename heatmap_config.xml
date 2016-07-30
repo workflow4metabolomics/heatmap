@@ -1,106 +1,106 @@
 <tool id="Heatmap" name="Heatmap" version="2.1.2">
-    <description>Heatmap of the dataMatrix</description>
-
-	<requirements>
-	  <requirement type="package" version="3.2.2">R</requirement>
-	  <requirement type="package">r-batch</requirement>
-	</requirements>
+  <description>Heatmap of the dataMatrix</description>
+  
+  <requirements>
+    <requirement type="package" version="3.2.2">R</requirement>
+    <requirement type="package">r-batch</requirement>
+  </requirements>
+  
+  <command><![CDATA[
+  Rscript $__tool_directory__/heatmap_wrapper.R
+  dataMatrix_in "$dataMatrix_in"
+  sampleMetadata_in "$sampleMetadata_in"
+  variableMetadata_in "$variableMetadata_in"
+  
+  cutSamN "$cutSamN"
+  cutVarN "$cutVarN"
+  
+  #if $advPar.oppC == "full"
+  scaL "$advPar.scaL"
+  cexN "$advPar.cexN"
+  #end if
+  
+  dataMatrix_out "$dataMatrix_out"
+  sampleMetadata_out "$sampleMetadata_out"
+  variableMetadata_out "$variableMetadata_out"
+  figure "$figure"            
+  ]]></command>
+  
+  <inputs>
+    <param name="dataMatrix_in" type="data" label="Data matrix file" help="" format="tabular" />
+    <param name="sampleMetadata_in" type="data" label="Sample metadata file" help="" format="tabular" />
+    <param name="variableMetadata_in" type="data" label="Variable metadata file" help="" format="tabular" />
     
-    <command><![CDATA[
-	Rscript $__tool_directory__/heatmap_wrapper.R
-			dataMatrix_in "$dataMatrix_in"
-			sampleMetadata_in "$sampleMetadata_in"
-			variableMetadata_in "$variableMetadata_in"
-			
-			cutSamN "$cutSamN"
-			cutVarN "$cutVarN"
-
-			#if $advPar.oppC == "full"
-			scaL "$advPar.scaL"
-			cexN "$advPar.cexN"
-			#end if
-			
-			dataMatrix_out "$dataMatrix_out"
-			sampleMetadata_out "$sampleMetadata_out"
-			variableMetadata_out "$variableMetadata_out"
-			figure "$figure"            
-	]]></command>
-	
-	<inputs>
-		<param name="dataMatrix_in" type="data" label="Data matrix file" help="" format="tabular" />
-		<param name="sampleMetadata_in" type="data" label="Sample metadata file" help="" format="tabular" />
-		<param name="variableMetadata_in" type="data" label="Variable metadata file" help="" format="tabular" />
+    <param name="cutSamN" label="Number of sample clusters to identify" type="select" help="">
+      <option value="1" selected="true">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>
+    </param>
+    
+    <param name="cutVarN" label="Number of variable clusters to identify" type="select" help="">
+      <option value="1" selected="true">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+      <option value="13">13</option>
+      <option value="14">14</option>
+      <option value="15">15</option>			
+    </param>
 		
-		<param name="cutSamN" label="Number of sample clusters to identify" type="select" help="">
-			<option value="1" selected="true">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
-			<option value="13">13</option>
-			<option value="14">14</option>
-			<option value="15">15</option>
-			
-		</param>
-		<param name="cutVarN" label="Number of variable clusters to identify" type="select" help="">
-			<option value="1" selected="true">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
-			<option value="13">13</option>
-			<option value="14">14</option>
-			<option value="15">15</option>			
-		</param>
-		
-		<conditional name="advPar">
-			<param name="oppC" type="select" label="Advanced parameters" >
-				<option value="default" selected="true">Use default</option>
-				<option value="full">Full list</option>
-			</param>		
-			<when value="full">
-				<param name="scaL" label="Variable standardization (for plotting only)" type="select" help="Standardization is performed after the clustering for display only (may enhance contrast) and does not modify cluster computation nor intensities in the output files">
-					<option value="TRUE" selected="true">yes</option>
-					<option value="FALSE">no</option>
-				</param>
-				<param name="cexN" label="Size of labels" type="select" help="">
-					<option value="0.5">0.5</option>
-					<option value="0.6">0.6</option>
-					<option value="0.7">0.7</option>
-					<option value="0.8" selected="true">0.8</option>
-					<option value="0.9">0.9</option>
-					<option value="1">1</option>
-				</param>
-			</when>
-		</conditional>
+    <conditional name="advPar">
+      <param name="oppC" type="select" label="Advanced parameters" >
+	<option value="default" selected="true">Use default</option>
+	<option value="full">Full list</option>
+      </param>		
+      <when value="full">
+	<param name="scaL" label="Variable standardization (for plotting only)" type="select" help="Standardization is performed after the clustering for display only (may enhance contrast) and does not modify cluster computation nor intensities in the output files">
+	  <option value="TRUE" selected="true">yes</option>
+	  <option value="FALSE">no</option>
+	</param>
+	<param name="cexN" label="Size of labels" type="select" help="">
+	  <option value="0.5">0.5</option>
+	  <option value="0.6">0.6</option>
+	  <option value="0.7">0.7</option>
+	  <option value="0.8" selected="true">0.8</option>
+	  <option value="0.9">0.9</option>
+	  <option value="1">1</option>
+	</param>
+      </when>
+    </conditional>
 
-	</inputs>
+  </inputs>
 	
-	<outputs>
-		<data name="dataMatrix_out" label="${tool.name}_${dataMatrix_in.name}" format="tabular" ></data>
-		<data name="sampleMetadata_out" label="${tool.name}_${sampleMetadata_in.name}" format="tabular" ></data>
-		<data name="variableMetadata_out" label="${tool.name}_${variableMetadata_in.name}" format="tabular" ></data>
-		<data name="figure" label="${tool.name}_figure.pdf" format="pdf"/>
-	</outputs>	
-	
+  <outputs>
+    <data name="dataMatrix_out" label="${tool.name}_${dataMatrix_in.name}" format="tabular" ></data>
+    <data name="sampleMetadata_out" label="${tool.name}_${sampleMetadata_in.name}" format="tabular" ></data>
+    <data name="variableMetadata_out" label="${tool.name}_${variableMetadata_in.name}" format="tabular" ></data>
+    <data name="figure" label="${tool.name}_figure.pdf" format="pdf"/>
+  </outputs>	
+  
   <help>
 
 .. class:: infomark
-
+    
 | **Tool update: See the 'NEWS' section at the bottom of the page**
 
 ---------------------------------------------------
@@ -247,20 +247,20 @@ Creating additional files for planemo and travis running and installation valida
  </help>
  
  <citations>
-    <citation type="bibtex">@Article{Thevenot2015,
-  Title                    = {Analysis of the human adult urinary metabolome variations with age, body mass index and gender by implementing a comprehensive workflow for univariate and OPLS statistical analyses},
-  Author                   = {Thévenot, Etienne A. and Roux, Aurélie and Xu, Ying and Ezan, Eric and Junot, Christophe},
-  Journal                  = {Journal of Proteome Research},
-  Year                     = {2015},
-  Note                     = {PMID: 26088811},
-  Number                   = {8},
-  Pages                    = {3322-3335},
-  Volume                   = {14},
-
-  Doi                      = {10.1021/acs.jproteome.5b00354},
-  Url                      = {http://pubs.acs.org/doi/full/10.1021/acs.jproteome.5b00354}
-}</citation>
-
+   <citation type="bibtex">@Article{Thevenot2015,
+   Title                    = {Analysis of the human adult urinary metabolome variations with age, body mass index and gender by implementing a comprehensive workflow for univariate and OPLS statistical analyses},
+   Author                   = {Thevenot, Etienne A. and Roux, Aurelie and Xu, Ying and Ezan, Eric and Junot, Christophe},
+   Journal                  = {Journal of Proteome Research},
+   Year                     = {2015},
+   Note                     = {PMID: 26088811},
+   Number                   = {8},
+   Pages                    = {3322-3335},
+   Volume                   = {14},
+   
+   Doi                      = {10.1021/acs.jproteome.5b00354},
+   Url                      = {http://pubs.acs.org/doi/full/10.1021/acs.jproteome.5b00354}
+   }</citation>
+   
  </citations>
  
 ---------------
