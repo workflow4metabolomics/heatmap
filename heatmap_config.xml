@@ -86,9 +86,10 @@
 	    <param name="cexN" type="hidden" value="0.8"/>
       </when>	
       <when value="full">
-    <param name="corMetC" label="Method of correlation to be used" type="select" help="">
+	<param name="corMetC" label="Method of correlation to be used" type="select" help="">
 	  <option value="pearson" selected="true">pearson</option>
 	  <option value="spearman">spearman</option>
+	  <option value="kendall">kendall</option>
 	</param>  
 	<param name="scaL" label="Variable standardization (for plotting only)" type="select" help="Standardization is performed after the clustering for display only (may enhance contrast) and does not modify cluster computation nor intensities in the output files">
 	  <option value="TRUE" selected="true">yes</option>
