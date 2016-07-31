@@ -36,7 +36,7 @@
     
     <param name="disC" label="Distance to be used for clustering" type="select" help="If the sign of the correlations between samples or variables does not matter, choose the alternative '1-abs(correlation)' argument; otherwise, keep the '1-correlation' default">
       <option value="1-cor" selected="true">1-correlation</option>
-      <option value="1-abs(cor)">1-|correlation|</option>
+      <option value="1-abs(cor)">1-abs(correlation)</option>
     </param>
     
     <param name="cutSamN" label="Number of sample clusters to identify" type="select" help="">
@@ -119,10 +119,11 @@
     <test>
       <param name="dataMatrix_in" value="input-dataMatrix.tsv"/>
       <param name="sampleMetadata_in" value="input-sampleMetadata.tsv"/>
-      <param name= "variableMetadata_in" value="input-variableMetadata.tsv"/>
+      <param name="variableMetadata_in" value="input-variableMetadata.tsv"/>
       <param name="disC" value="1-cor"/>
-      <param name="cutSamN" value="1"/>
+      <param name="cutSamN" value="4"/>
       <param name="cutVarN" value="3"/>
+      <param name="oppC" value="full"/>
       <param name="corMetC" value="spearman"/>
       <param name="scaL" value="TRUE"/>
       <param name="cexN" value="0.8"/>
