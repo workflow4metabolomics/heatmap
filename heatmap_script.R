@@ -8,47 +8,60 @@
 heatmapF <- function(proMN,
                      obsDF,
                      feaDF,
-                     disC,
-                     cutSamN,
-                     cutVarN,
+                     disC,    ## dissimilarity
+                     cutSamN, ## number of sample clusters
+                     cutVarN, ## number of variable clusters
                      fig.pdfC,
-                     corMetC,
+                     corMetC, ## correlation method
+                     aggMetC, ## agglomeration method
+                     colC,    ## color scale
                      scaL,
                      cexN) {
 
     ncaN <- 14 ## Sample and variable name truncature for display
 
-    warC <- "ward"
-    rvsLs <- R.Version()
-    warC <- paste0(warC,
-                   ifelse(as.numeric(rvsLs[["major"]]) > 3 ||
-                          as.numeric(rvsLs[["major"]]) == 3 && as.numeric(rvsLs[["minor"]]) > 0.3,
-                          ".D",
-                          ""))
+    if(aggMetC == "ward") {
 
-    if(substr(disC, 1, 5) == "1-cor") {
-
+        rvsLs <- R.Version()
+        aggMetC <- paste0(aggMetC,
+                          ifelse(as.numeric(rvsLs[["major"]]) > 3 ||
+                                 as.numeric(rvsLs[["major"]]) == 3 && as.numeric(rvsLs[["minor"]]) > 0.3,
+                                 ".D",
+                                 ""))
+        
+    }
+    
+    if(disC %in% c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski")) {
+        
+        obsHcl <- hclust(dist(proMN, method = disC),
+                         method = aggMetC)
+        
+        feaHcl <- hclust(dist(t(proMN), method = disC),
+                         method = aggMetC)
+        
+    } else if(disC == "1-cor") {
+        
         obsHcl <- hclust(as.dist(1-cor(t(proMN),
                                        method = corMetC,
                                        use = "pairwise.complete.obs")),
-                         method = warC)
+                         method = aggMetC)
 
         feaHcl <- hclust(as.dist(1-cor(proMN,
                                        method = corMetC,
                                        use = "pairwise.complete.obs")),
-                         method = warC)
+                         method = aggMetC)
 
     } else if(disC == "1-abs(cor)") {
 
         obsHcl <- hclust(as.dist(1-abs(cor(t(proMN),
                                            method = corMetC,
                                            use = "pairwise.complete.obs"))),
-                         method = warC)
+                         method = aggMetC)
 
         feaHcl <- hclust(as.dist(1-abs(cor(proMN,
                                            method = corMetC,
                                            use = "pairwise.complete.obs"))),
-                         method = warC)
+                         method = aggMetC)
 
     }
 
@@ -59,8 +72,16 @@ heatmapF <- function(proMN,
 
     heaMN <- heaMN[, rev(1:ncol(heaMN)), drop = FALSE]
 
-    imaPalVn <- colorRampPalette(c("blue", "orange", "red"),
-                                 space = "rgb")(5)[1:5]
+    switch(colC,
+           blueOrangeRed = {
+               imaPalVn <- colorRampPalette(c("blue", "orange", "red"),
+                                            space = "rgb")(5)[1:5]
+           },
+           redBlackGreen = {
+               imaPalVn <- colorRampPalette(c("red", "black", "green"),
+                                            space = "rgb")(5)[1:5]
+           })
+
 
     ## figure
     ##-------

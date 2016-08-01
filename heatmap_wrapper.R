@@ -37,6 +37,14 @@ sink(argVc["information"])
 cat("\nStart of the '", modNamC, "' module: ",
     format(Sys.time(), "%a %d %b %Y %X"), "\n", sep="")
 
+cat("\nArguments used:\n\n")
+argMC <- as.matrix(argVc)
+colnames(argMC) <- "value"
+argDatVl <- grepl("\\.dat$", argVc) ## discarding dataset file names
+if(sum(argDatVl))
+    argMC <- argMC[!argDatVl, , drop = FALSE]
+print(argMC)
+
 ## loading
 ##--------
 
@@ -60,7 +68,6 @@ feaDF <- read.table(argVc["variableMetadata_in"],
 
 cutSamN <- as.numeric(argVc["cutSamN"])
 cutVarN <- as.numeric(argVc["cutVarN"])
-disC <- as.character(argVc["disC"])
 
 ## checking
 ##---------
@@ -69,8 +76,6 @@ if(cutSamN > nrow(proMN))
     stop("Number of sample clusters must be inferior to the number of samples")
 if(cutVarN > ncol(proMN))
     stop("Number of variable clusters must be inferior to the number of variables")
-if(!(disC %in% c("1-cor", "1-abs(cor)")))
-   stop("Distance must be either '1-cor', '1-abs(cor)'")
 
 
 ##------------------------------
@@ -81,13 +86,15 @@ if(!(disC %in% c("1-cor", "1-abs(cor)")))
 heaLs <- heatmapF(proMN = proMN,
                   obsDF = obsDF,
                   feaDF = feaDF,
-                  disC = disC,
+                  disC = argVc["disC"],
                   cutSamN = cutSamN,
                   cutVarN = cutVarN,
                   fig.pdfC = argVc["figure"],
                   corMetC = ifelse("corMetC" %in% names(argVc),
                       as.character(argVc["corMetC"]),
                       "pearson"),
+                  aggMetC = argVc["aggMetC"],
+                  colC = argVc["colC"],
                   scaL = ifelse("scaL" %in% names(argVc),
                       as.logical(argVc["scaL"]),
                       TRUE),

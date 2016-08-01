@@ -5,6 +5,8 @@ test_input_cut4 <- function() {
                   cutSamN = "4",
                   cutVarN = "3",
                   corMetC = "spearman",
+                  aggMetC = "ward",
+                  colC = "blueOrangeRed",
                   scaL = "TRUE",
                   cexN = "0.8")
 
@@ -22,6 +24,8 @@ test_exa1_cut3 <- function() {
                   cutSamN = "3",
                   cutVarN = "4",
                   corMetC = "spearman",
+                  aggMetC = "ward",
+                  colC = "blueOrangeRed",
                   scaL = "TRUE",
                   cexN = "1")
 
@@ -39,6 +43,8 @@ test_exa2_cut4 <- function() {
                   cutSamN = "1",
                   cutVarN = "1",
                   corMetC = "spearman",
+                  aggMetC = "ward",
+                  colC = "blueOrangeRed",
                   scaL = "TRUE",
                   cexN = "1")
 
