@@ -35,9 +35,11 @@ The code in the wrapper can be tested by running the **tests/heatmap_tests.R** i
 
 NEW FEATURES  
 
-    o Default method for the correlation coefficient is now 'pearson', instead of 'spearman' previously (the latter can still be selected in the advanced parameters)  
+    o Default method for the correlation coefficient is now 'pearson', instead of 'spearman' previously (the latter can still be selected in the advanced parameters)
 
-    o The '1-abs(correlation)' method is now available (in addition to the default '1-correlation') in case the sign of correlations between samples and between variables does not matter  
+    o The 1-abs(correlation) dissimilarity is now available (in addition to the default '1-correlation') in case the sign of correlations between samples and between variables does not matter, as well as the euclidean, maximum, manhattan, canberra, binary, and minkowski dissimilarities
+
+    o A new red-green color scale is available
 
 ***    
     
