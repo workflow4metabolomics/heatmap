@@ -89,9 +89,11 @@
 	<option value="full">Full list</option>
       </param>
       <when value="default">
-        <param name="corMetC" type="hidden" value="pearson"/>
+	<param name="corMetC" type="hidden" value="pearson"/>
+	<param name="aggMetC" type="hidden" value="ward"/>
+	<param name="colC" type="hidden" value="blueOrangeRed"/>
         <param name="scaL" type="hidden" value="TRUE"/>
-	    <param name="cexN" type="hidden" value="0.8"/>
+	<param name="cexN" type="hidden" value="0.8"/>
       </when>	
       <when value="full">
 	<param name="corMetC" label="Method of correlation to be used" type="select" help="">

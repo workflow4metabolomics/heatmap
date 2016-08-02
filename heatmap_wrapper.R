@@ -1,5 +1,4 @@
-#!/usr/bin/Rscript --vanilla --slave --no-site-file
-
+#!/usr/bin/env Rscript
 
 library(batch) ## parseCommandArgs
 
@@ -37,14 +36,6 @@ sink(argVc["information"])
 cat("\nStart of the '", modNamC, "' module: ",
     format(Sys.time(), "%a %d %b %Y %X"), "\n", sep="")
 
-cat("\nArguments used:\n\n")
-argMC <- as.matrix(argVc)
-colnames(argMC) <- "value"
-argDatVl <- grepl("\\.dat$", argVc) ## discarding dataset file names
-if(sum(argDatVl))
-    argMC <- argMC[!argDatVl, , drop = FALSE]
-print(argMC)
-
 ## loading
 ##--------
 
@@ -66,16 +57,39 @@ feaDF <- read.table(argVc["variableMetadata_in"],
                     row.names = 1,
                     sep = "\t")
 
-cutSamN <- as.numeric(argVc["cutSamN"])
-cutVarN <- as.numeric(argVc["cutVarN"])
+## adding default parameter values
+##--------------------------------
+
+
+if(!("corMetC" %in% names(argVc)))
+    argVc["corMetC"] <- "pearson"
+if(!("aggMetC" %in% names(argVc)))
+    argVc["aggMetC"] <- "ward"
+if(!("colC" %in% names(argVc)))
+    argVc["colC"] <- "blueOrangeRed"
+if(!("scaL" %in% names(argVc)))
+    argVc["scaL"] <- "TRUE"
+if(!("cexN" %in% names(argVc)))
+    argVc["cexN"] <- "0.8"
 
 ## checking
 ##---------
 
-if(cutSamN > nrow(proMN))
+if(as.numeric(argVc["cutSamN"]) > nrow(proMN))
     stop("Number of sample clusters must be inferior to the number of samples")
-if(cutVarN > ncol(proMN))
+if(as.numeric(argVc["cutVarN"]) > ncol(proMN))
     stop("Number of variable clusters must be inferior to the number of variables")
+
+## printing arguments
+##-------------------
+
+cat("\nArguments used:\n\n")
+argMC <- as.matrix(argVc)
+colnames(argMC) <- "value"
+argDatVl <- grepl("\\.dat$", argVc) ## discarding dataset file names
+if(sum(argDatVl))
+    argMC <- argMC[!argDatVl, , drop = FALSE]
+print(argMC)
 
 
 ##------------------------------
@@ -87,20 +101,14 @@ heaLs <- heatmapF(proMN = proMN,
                   obsDF = obsDF,
                   feaDF = feaDF,
                   disC = argVc["disC"],
-                  cutSamN = cutSamN,
-                  cutVarN = cutVarN,
+                  cutSamN = as.numeric(argVc["cutSamN"]),
+                  cutVarN = as.numeric(argVc["cutVarN"]),
                   fig.pdfC = argVc["figure"],
-                  corMetC = ifelse("corMetC" %in% names(argVc),
-                      as.character(argVc["corMetC"]),
-                      "pearson"),
+                  corMetC = argVc["corMetC"],
                   aggMetC = argVc["aggMetC"],
                   colC = argVc["colC"],
-                  scaL = ifelse("scaL" %in% names(argVc),
-                      as.logical(argVc["scaL"]),
-                      TRUE),
-                  cexN = ifelse("cexN" %in% names(argVc),
-                      as.numeric(argVc["cexN"]),
-                      0.8))
+                  scaL = as.logical(argVc["scaL"]),
+                  cexN = as.numeric(argVc["cexN"]))
 
 
 ##------------------------------
