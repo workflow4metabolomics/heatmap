@@ -1,5 +1,4 @@
-archive/
-tests/output/
+runit/output/
 .Rhistory
 tool_test_output.html
 tool_test_output.json

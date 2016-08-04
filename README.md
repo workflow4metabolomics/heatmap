@@ -27,7 +27,7 @@ Status: [![Build Status](https://travis-ci.org/workflow4metabolomics/heatmap.svg
 
 ### Tests
 
-The code in the wrapper can be tested by running the **tests/heatmap_tests.R** in R  
+The code in the wrapper can be tested by running the 'runit/heatmap_runtests.R' file  
 
 ### News  
 
