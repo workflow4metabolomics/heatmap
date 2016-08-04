@@ -5,8 +5,8 @@ Status: [![Build Status](https://travis-ci.org/workflow4metabolomics/heatmap.svg
 
 ### Description
 
-**Version:** 2.2.0    
-**Date:** 2016-07-30  
+**Version:** 2.2.2    
+**Date:** 2016-08-04    
 **Author:** Etienne A. Thevenot (CEA, LIST, MetaboHUB, W4M Core Development Team)   
 **Email:** [etienne.thevenot(at)cea.fr](mailto:etienne.thevenot@cea.fr)  
 **Citation:** Thevenot E.A., Roux A., Xu Y., Ezan E. and Junot C. (2015). Analysis of the human adult urinary metabolome variations with age, body mass index and gender by implementing a comprehensive workflow for univariate and OPLS statistical analyses. *Journal of Proteome Research*, **14**:3322-3335. [doi:10.1021/acs.jproteome.5b00354](http://dx.doi.org/10.1021/acs.jproteome.5b00354)  
@@ -29,7 +29,15 @@ Status: [![Build Status](https://travis-ci.org/workflow4metabolomics/heatmap.svg
 
 The code in the wrapper can be tested by running the 'runit/heatmap_runtests.R' file  
 
-### News  
+### News
+
+##### CHANGES IN VERSION 2.2.2  
+
+INTERNAL MODIFICATION  
+
+    o Minor internal modifications  
+
+***  
 
 ##### CHANGES IN VERSION 2.2.0  
 
