@@ -5,7 +5,11 @@
     <requirement type="package" version="3.2.2">R</requirement>
     <requirement type="package">r-batch</requirement>
   </requirements>
-  
+
+  <stdio>
+    <exit_code range="1:" level="fatal" />
+  </stdio>
+    
   <command><![CDATA[
   Rscript $__tool_directory__/heatmap_wrapper.R
   dataMatrix_in "$dataMatrix_in"
