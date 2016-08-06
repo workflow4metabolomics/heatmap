@@ -12,6 +12,7 @@
     
   <command><![CDATA[
   Rscript $__tool_directory__/heatmap_wrapper.R
+  
   dataMatrix_in "$dataMatrix_in"
   sampleMetadata_in "$sampleMetadata_in"
   variableMetadata_in "$variableMetadata_in"
@@ -296,7 +297,7 @@ Working example
 
 .. class:: infomark
 
-See the **W4M00001a_sacurine-subset-statistics** shared history in the **Shared Data/Published Histories** menu
+See the **W4M00001a_sacurine-subset-statistics** shared history in the **Shared Data/Published Histories** menu (https://galaxy.workflow4metabolomics.org/history/list_published)
 
 ---------------------------------------------------
 
@@ -333,11 +334,21 @@ Creating additional files for planemo and travis running and installation valida
 CHANGES IN VERSION 2.1.1
 ========================
 
+INTERNAL MODIFICATIONS
+
 Internal replacement of the as.hclust function which happened to produce error messages
 
  </help>
  
  <citations>
+   <citation type="bibtex">@Manual{,
+   title = {R: A Language and Environment for Statistical Computing},
+   author = {{R Core Team}},
+   organization = {R Foundation for Statistical Computing},
+   address = {Vienna, Austria},
+   year = {2016},
+   url = {https://www.R-project.org/},
+   }</citation>
    <citation type="bibtex">@Article{Thevenot2015,
    Title                    = {Analysis of the human adult urinary metabolome variations with age, body mass index and gender by implementing a comprehensive workflow for univariate and OPLS statistical analyses},
    Author                   = {Thevenot, Etienne A. and Roux, Aurelie and Xu, Ying and Ezan, Eric and Junot, Christophe},
@@ -350,7 +361,8 @@ Internal replacement of the as.hclust function which happened to produce error m
    
    Doi                      = {10.1021/acs.jproteome.5b00354},
    Url                      = {http://pubs.acs.org/doi/full/10.1021/acs.jproteome.5b00354}
-   }</citation> 
+   }</citation>
+   <citation type="doi">10.1093/bioinformatics/btu813</citation>
  </citations>
   
 </tool>

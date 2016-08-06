@@ -1,7 +1,7 @@
 runit/output/
-.Rhistory
-tool_test_output.html
-tool_test_output.json
+tool_test_output.*
 .#*
 \#*#
 *~
+.swp
+.*.swp

@@ -1,5 +1,7 @@
-## Heatmap of the data matrix  
-#### A Galaxy module from the [Workflow4metabolomics](http://workflow4metabolomics.org) project
+Heatmap of the data matrix  
+==========================
+
+A Galaxy module from the [Workflow4metabolomics](http://workflow4metabolomics.org) infrastructure  
 
 Status: [![Build Status](https://travis-ci.org/workflow4metabolomics/heatmap.svg?branch=master)](https://travis-ci.org/workflow4metabolomics/heatmap).
 
@@ -16,18 +18,25 @@ Status: [![Build Status](https://travis-ci.org/workflow4metabolomics/heatmap.svg
 
 ### Installation
 
-* Configuration file: **heatmap_config.xml**
+* Configuration file: `heatmap_config.xml`
 * Image files:
-    + **static/images/heatmap_workflowPositionImage.png**  
-    + **static/images/heatmap_workingExampleImage.png**     
-* Wrapper file: **heatmap_wrapper.R**  
+    + `static/images/heatmap_workflowPositionImage.png`  
+    + `static/images/heatmap_workingExampleImage.png`     
+* Wrapper file: `heatmap_wrapper.R`  
 * R packages  
-    + **batch** from CRAN  
-> install.packages("batch", dep=TRUE)   
+    + **batch** from CRAN
+  
+    ```r
+    install.packages("batch", dep=TRUE)  
+    ```
 
 ### Tests
 
-The code in the wrapper can be tested by running the 'runit/heatmap_runtests.R' file  
+The code in the wrapper can be tested by running the `runit/heatmap_runtests.R` R file
+
+### Working example  
+
+See the **W4M00001a_sacurine-subset-statistics** shared history in the **Shared Data/Published Histories** menu (https://galaxy.workflow4metabolomics.org/history/list_published)  
 
 ### News
 
@@ -35,34 +44,26 @@ The code in the wrapper can be tested by running the 'runit/heatmap_runtests.R' 
 
 INTERNAL MODIFICATION  
 
-    o Minor internal modifications  
-
-***  
+ * Minor internal modifications  
 
 ##### CHANGES IN VERSION 2.2.0  
 
 NEW FEATURES  
 
-    o Default method for the correlation coefficient is now 'pearson', instead of 'spearman' previously (the latter can still be selected in the advanced parameters)
+ * Default method for the correlation coefficient is now 'pearson', instead of 'spearman' previously (the latter can still be selected in the advanced parameters)
 
-    o The 1-abs(correlation) dissimilarity is now available (in addition to the default '1-correlation') in case the sign of correlations between samples and between variables does not matter, as well as the euclidean, maximum, manhattan, canberra, binary, and minkowski dissimilarities
+ * The 1-abs(correlation) dissimilarity is now available (in addition to the default '1-correlation') in case the sign of correlations between samples and between variables does not matter, as well as the euclidean, maximum, manhattan, canberra, binary, and minkowski dissimilarities
 
-    o A new red-green color scale is available
+ * A new red-green color scale is available
 
-***    
-    
 ##### CHANGES IN VERSION 2.1.2  
 
 INTERNAL MODIFICATION  
 
-    o Creating additional files for planemo and travis validation  
+ * Creating additional files for planemo and travis validation  
 
-***  
-    
 ##### CHANGES IN VERSION 2.0.2  
 
 INTERNAL MODIFICATION  
 
-    o Creating tests for R code  
-    
-***  
+ * Creating tests for R code  
